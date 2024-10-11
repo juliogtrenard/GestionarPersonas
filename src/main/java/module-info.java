@@ -5,4 +5,6 @@ module es.juliogtrenard.gestionarpersonas {
 
     opens es.juliogtrenard.gestionarpersonas to javafx.fxml;
     exports es.juliogtrenard.gestionarpersonas;
+    exports es.juliogtrenard.gestionarpersonas.controladores;
+    opens es.juliogtrenard.gestionarpersonas.controladores to javafx.fxml;
 }

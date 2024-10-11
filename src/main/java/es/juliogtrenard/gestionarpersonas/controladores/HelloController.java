@@ -1,4 +1,4 @@
-package es.juliogtrenard.gestionarpersonas;
+package es.juliogtrenard.gestionarpersonas.controladores;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
