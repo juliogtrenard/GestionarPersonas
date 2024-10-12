@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HelloController {
     @FXML
@@ -86,26 +88,31 @@ public class HelloController {
     private String errores() {
         String errores = "";
 
-        String nombre = txtNombre.getText();
-        String apellidos = txtApellidos.getText();
+        String nombre = txtNombre.getText().trim();
+        String apellidos = txtApellidos.getText().trim();
+        String edadInput = txtEdad.getText().trim();
 
-        if(nombre.isEmpty()) {
+        if (nombre.isEmpty()) {
             errores += "Debes introducir tu nombre.\n";
+        } else if (!nombre.matches("^[A-Za-záéíóúÁÉÍÓÚÑñ\\s]+$")) {
+            errores += "El nombre no puede contener números.\n";
         }
 
-        if(apellidos.isEmpty()) {
+        if (apellidos.isEmpty()) {
             errores += "Debes introducir al menos un apellido.\n";
+        } else if (!apellidos.matches("^[A-Za-záéíóúÁÉÍÓÚÑñ\\s]+$")) {
+            errores += "Los apellidos no pueden contener números.\n";
         }
 
+        int edad = 0;
         try {
-            int edad = Integer.parseInt(txtEdad.getText());
+            edad = Integer.parseInt(edadInput);
         } catch (NumberFormatException e) {
-            errores += "El campo 'Edad' debe ser numérico.\n";
+            return errores + "El campo 'Edad' debe ser numérico.\n";
         }
 
-        if((!txtNombre.getText().trim().matches("^[A-Za-záéíóúÁÉÍÓÚÑñ\\s]+$") && !txtNombre.getText().isEmpty()) ||
-                (!txtApellidos.getText().trim().matches("^[A-Za-záéíóúÁÉÍÓÚÑñ\\s]+$") && !txtApellidos.getText().isEmpty())) {
-            errores += "El nombre y/o apellidos no pueden contener números\n";
+        if (edad < 1 || edad > 100) {
+            errores += "Introduce una edad válida (1-100).\n";
         }
 
         return errores;
