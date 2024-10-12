@@ -8,20 +8,6 @@ import javafx.scene.control.*;
 import java.util.ArrayList;
 
 public class HelloController {
-    int contador = 0;
-
-    @FXML
-    private Button btnAgregar;
-
-    @FXML
-    private TableColumn<Persona, String> tcApellidos;
-
-    @FXML
-    private TableColumn<Persona, Integer> tcEdad;
-
-    @FXML
-    private TableColumn<Persona, String> tcNombre;
-
     @FXML
     private TableView<Persona> tvTabla;
 
@@ -44,26 +30,57 @@ public class HelloController {
 
     @FXML
     void agregarPersona(ActionEvent event) {
-        String errores = errores();
+        String errores = validarEntradas();
 
-        if(errores.isEmpty()) {
-            String nombre = txtNombre.getText();
-            String apellidos = txtApellidos.getText();
-            int edad = Integer.parseInt(txtEdad.getText());
-
-            Persona persona = new Persona(nombre, apellidos, edad);
-            listaPersonas.add(persona);
-
-            tvTabla.getItems().add(persona);
-        } else {
-            Alert alerta = new Alert(Alert.AlertType.ERROR, errores);
-            alerta.setHeaderText(null);
-            alerta.setTitle("Errores en la encuesta:");
-            alerta.showAndWait();
+        if (!errores.isEmpty()) {
+            mostrarAlerta(errores);
+            return;
         }
 
-        contador++;
+        if (esPersonaRepetida()) {
+            mostrarAlerta("Persona repetida");
+        } else {
+            crearPersona();
+        }
+
         limpiarCampos();
+    }
+
+    private void crearPersona() {
+        String nombre = txtNombre.getText();
+        String apellidos = txtApellidos.getText();
+        int edad = Integer.parseInt(txtEdad.getText());
+
+        Persona persona = new Persona(nombre, apellidos, edad);
+        listaPersonas.add(persona);
+
+        tvTabla.getItems().add(persona);
+    }
+
+    private String validarEntradas() {
+        return errores();
+    }
+
+    private boolean esPersonaRepetida() {
+        for (Persona p : listaPersonas) {
+            if (esIgualPersona(p)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean esIgualPersona(Persona p) {
+        return p.getNombre().equalsIgnoreCase(txtNombre.getText().trim()) &&
+                p.getApellidos().equalsIgnoreCase(txtApellidos.getText().trim()) &&
+                p.getEdad() == Integer.parseInt(txtEdad.getText());
+    }
+
+    private void mostrarAlerta(String errores) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR, errores);
+        alerta.setHeaderText(null);
+        alerta.setTitle("Errores en la encuesta:");
+        alerta.showAndWait();
     }
 
     private String errores() {
