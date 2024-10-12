@@ -4,10 +4,7 @@ import es.juliogtrenard.gestionarpersonas.modelos.Persona;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class HelloController {
     @FXML
@@ -104,7 +101,7 @@ public class HelloController {
             errores += "Los apellidos no pueden contener números.\n";
         }
 
-        int edad = 0;
+        int edad;
         try {
             edad = Integer.parseInt(edadInput);
         } catch (NumberFormatException e) {
