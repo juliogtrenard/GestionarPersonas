@@ -103,8 +103,8 @@ public class HelloController {
             errores += "El campo 'Edad' debe ser numérico.\n";
         }
 
-        if((!txtNombre.getText().matches("[a-zA-Z]+") && !txtNombre.getText().isEmpty()) ||
-                (!txtApellidos.getText().matches("[a-zA-Z]+") && !txtApellidos.getText().isEmpty())) {
+        if((!txtNombre.getText().trim().matches("^[A-Za-záéíóúÁÉÍÓÚÑñ\\s]+$") && !txtNombre.getText().isEmpty()) ||
+                (!txtApellidos.getText().trim().matches("^[A-Za-záéíóúÁÉÍÓÚÑñ\\s]+$") && !txtApellidos.getText().isEmpty())) {
             errores += "El nombre y/o apellidos no pueden contener números\n";
         }
 
