@@ -57,6 +57,13 @@ public class HelloController {
         listaPersonas.add(persona);
 
         tvTabla.getItems().add(persona);
+
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION, "Persona añadida correctamente.");
+        alerta.setHeaderText(null);
+        alerta.setTitle("INFO:");
+        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/img/library_icon.png"))));
+        alerta.showAndWait();
     }
 
     private String validarEntradas() {
