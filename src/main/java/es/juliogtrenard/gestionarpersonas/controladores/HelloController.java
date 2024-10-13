@@ -4,6 +4,9 @@ import es.juliogtrenard.gestionarpersonas.modelos.Persona;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 public class HelloController {
@@ -78,7 +81,9 @@ public class HelloController {
     private void mostrarAlerta(String errores) {
         Alert alerta = new Alert(Alert.AlertType.ERROR, errores);
         alerta.setHeaderText(null);
-        alerta.setTitle("Errores en la encuesta:");
+        alerta.setTitle("ERROR:");
+        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/img/library_icon.png"))));
         alerta.showAndWait();
     }
 
